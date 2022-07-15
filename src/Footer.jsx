@@ -1,8 +1,7 @@
-import "./Footer.css"
+import './Footer.css'
 
-export default function Footer(){
-
-    return(
+export default function Footer() {
+    return (
         <footer>
             <section className="footer-social">
                 <div className="social-app">Social Links Here</div>
