@@ -156,7 +156,6 @@ export default function MainPage({ productData, searchInput, setSearchInput }) {
                 />
             </div>
             <button onClick={() => filterData()}>Filter</button>
-            <Button>Test Button</Button>
         </main>
     )
 }

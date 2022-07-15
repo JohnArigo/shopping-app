@@ -1,4 +1,5 @@
 import './ProductCard.css'
+import { Card, Group, Badge, Button, Text } from '@mantine/core'
 
 export default function ProductCard({
     data,
@@ -55,20 +56,40 @@ export default function ProductCard({
 
             {dataSearchFilter().map((card, index) => {
                 return (
-                    <main className="flex flex-col justify-center items-center border border-solid border-black ml-5 mb-2 mt-2 w-20 h-32 bg-blue-600">
-                        <section className="card" key={index}>
-                            {/*<div><img className="image" style= ""src={card.image}/></div>*/}
-                            <div>{card.title}</div>
-                            <div>${card.price}</div>
-                            <div>{card.rating.rate}</div>
-                        </section>
-                        <section>
-                            <button onClick={() => addToCart(index)}>
-                                Add To Cart
-                            </button>
-                        </section>
-                        <h4></h4>
-                    </main>
+                    <Card
+                        shadow="sm"
+                        p="lg"
+                        className="flex flex-col justify-center items-center border border-solid border-black ml-5 mb-2 mt-2 w-40 h-88"
+                    >
+                        <Badge
+                            className="self-end"
+                            color="pink"
+                            variant="light"
+                        >
+                            {card.rating.rate}
+                        </Badge>
+                        <Card.Section>
+                            <img className="h-20 w-20" src={card.image} />
+                        </Card.Section>
+
+                        <Group position="apart">
+                            <Text weight={500} className="self-center">
+                                {card.title}
+                            </Text>
+                        </Group>
+
+                        <Text size="sm">${card.price}</Text>
+
+                        <Button
+                            variant="light"
+                            color="blue"
+                            fullWidth
+                            style={{ marginTop: 14 }}
+                            onClick={() => addToCart(index)}
+                        >
+                            Add to Cart
+                        </Button>
+                    </Card>
                 )
             })}
         </body>

@@ -7,6 +7,7 @@ nav {
     height: 10vh;
     position: sticky;
     top: 0;
+    z-index: 100;
 }
 .cart-label {
     font-size: 12px;

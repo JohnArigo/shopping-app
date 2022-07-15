@@ -19,27 +19,29 @@ function App() {
         // priceMax: 100000
     })
 
-    const noDisplaying = false
+    const [mainDisplay, setMainDisplay] = useState(false)
+
     return (
         <body className="app-body">
-            {noDisplaying ? (
-                <ShoppingCart
-                    shoppingCart={shoppingCart}
-                    setShoppingCart={setShoppingCart}
-                />
-            ) : null}
-            <NavBar cart={shoppingCart} />
+            <NavBar cart={shoppingCart} setMainDisplay={setMainDisplay} />
             <MainPage
                 productData={productData}
                 searchInput={searchInput}
                 setSearchInput={setSearchInput}
             />
-            <ProductCard
-                data={productData}
-                setShoppingCart={setShoppingCart}
-                searchInput={searchInput}
-                setSearchInput={setSearchInput}
-            />
+            {mainDisplay ? (
+                <ShoppingCart
+                    cart={shoppingCart}
+                    setShoppingCart={setShoppingCart}
+                />
+            ) : (
+                <ProductCard
+                    data={productData}
+                    setShoppingCart={setShoppingCart}
+                    searchInput={searchInput}
+                    setSearchInput={setSearchInput}
+                />
+            )}
             <Footer />
         </body>
     )
