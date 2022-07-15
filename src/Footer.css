@@ -1,0 +1,25 @@
+footer{
+    background-color: bisque;
+    width:100vw;
+    height:10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer-social{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.footer-copyright{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.social-app{
+    margin-left: 10px;
+}
+.copyright{
+    margin-right:10px;
+}

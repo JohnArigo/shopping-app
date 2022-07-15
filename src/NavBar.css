@@ -1,0 +1,17 @@
+nav{
+    width:100vw;
+    background-color: blueviolet;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height:10vh;
+    position: sticky;
+    top:0;
+}
+.cart-label{
+    font-size: 12px;
+    background: #ff0000;
+    color: #fff;
+    padding: 0 5px;
+    vertical-align: top;
+}
