@@ -9,6 +9,7 @@ export default function MainPage({ productData, searchInput, setSearchInput }) {
         catIII: false,
         catIV: false,
     })
+    console.log(searchInput.priceMin)
 
     //create state that will store min and max of price
     //create a slider on the return to set price on the state
@@ -57,6 +58,15 @@ export default function MainPage({ productData, searchInput, setSearchInput }) {
     function handleChange(event) {
         const { name, value, type, checked } = event.target
         setCategoryItems((prevFormData) => {
+            return {
+                ...prevFormData,
+                [name]: type === 'checkbox' ? checked : value,
+            }
+        })
+    }
+    function handleChangeSearch(event) {
+        const { name, value, type, checked } = event.target
+        setSearchInput((prevFormData) => {
             return {
                 ...prevFormData,
                 [name]: type === 'checkbox' ? checked : value,
@@ -144,15 +154,45 @@ export default function MainPage({ productData, searchInput, setSearchInput }) {
                 />
                 <label className="main-checkbox-label">Electronics</label>
             </div>
-            <div>
+            <div className="flex flex-wrap w-full">
+                <label className="w-3/5">Min Price:</label>
                 <input
-                    name="price"
+                    className="w-2/5"
+                    name="priceMin"
+                    type="number"
+                    max="9999"
+                    value={searchInput.priceMin}
+                    onChange={(event) => handleChangeSearch(event)}
+                />
+                <input
+                    className="w-full"
+                    name="priceMin"
                     type="range"
                     min="0"
+                    max="9999"
+                    onChange={(event) => handleChangeSearch(event)}
+                    value={searchInput.priceMin}
+                />
+            </div>
+            <div className="flex flex-wrap w-full">
+                <label className="w-2/5">Max Price:</label>
+                <input
+                    className="w-2/5"
+                    name="priceMax"
+                    type="number"
                     max="10000"
-                    onChange={handleChange}
-                    value={searchInput.price}
-                    step="1"
+                    value={searchInput.priceMax}
+                    onChange={(event) => handleChangeSearch(event)}
+                />
+                <input
+                    className="w-full"
+                    name="priceMax"
+                    type="range"
+                    min="5"
+                    max="10000"
+                    step={10}
+                    onChange={(event) => handleChangeSearch(event)}
+                    value={searchInput.priceMax}
                 />
             </div>
             <button onClick={() => filterData()}>Filter</button>

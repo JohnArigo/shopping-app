@@ -15,8 +15,8 @@ function App() {
         categoryTwo: '',
         categoryThree: '',
         categoryFour: '',
-        // priceMin: 0,
-        // priceMax: 100000
+        priceMin: 0,
+        priceMax: 10000,
     })
 
     const [mainDisplay, setMainDisplay] = useState(false)

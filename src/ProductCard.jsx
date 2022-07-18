@@ -34,9 +34,21 @@ export default function ProductCard({
                 return card
             }
         })
+    const dataPriceFilter = () =>
+        dataCategoryFilter().filter((card) => {
+            const cardPrice = card.price
+            const userPricePreferenceMin = searchInput.priceMin
+            const userPricePreferenceMax = searchInput.priceMax
+            if (
+                cardPrice >= userPricePreferenceMin &&
+                cardPrice <= userPricePreferenceMax
+            ) {
+                return card
+            }
+        })
 
     const dataSearchFilter = () =>
-        dataCategoryFilter().filter((card) => {
+        dataPriceFilter().filter((card) => {
             const cardTitle = card.title.toLowerCase()
             const userSearch = searchInput.userSearch.toLowerCase()
             if (searchInput.userSearch === '') {
@@ -59,27 +71,26 @@ export default function ProductCard({
                     <Card
                         shadow="sm"
                         p="lg"
-                        className="flex flex-col justify-center items-center border border-solid border-black ml-5 mb-2 mt-2 w-40 h-88"
+                        className="flex flex-col justify-center items-center border border-solid border-black ml-5 mb-2 mt-2 w-56 h-88"
                     >
-                        <Badge
-                            className="self-end"
-                            color="pink"
-                            variant="light"
-                        >
-                            {card.rating.rate}
-                        </Badge>
                         <Card.Section>
-                            <img className="h-20 w-20" src={card.image} />
+                            <img className="h-20 w-20 mt-4" src={card.image} />
                         </Card.Section>
 
-                        <Group position="apart">
+                        <Group position="apart" className="self-center">
                             <Text weight={500} className="self-center">
                                 {card.title}
                             </Text>
                         </Group>
 
                         <Text size="sm">${card.price}</Text>
-
+                        <Badge
+                            className="self-center"
+                            color="pink"
+                            variant="light"
+                        >
+                            {card.rating.rate} / 5
+                        </Badge>
                         <Button
                             variant="light"
                             color="blue"
