@@ -2,22 +2,64 @@ import { useState, useEffect } from 'react'
 import './MainPage.css'
 import { Button } from '@mantine/core'
 
-export default function MainPage({ productData, searchInput, setSearchInput }) {
+export default function MainPage({
+    productData,
+    searchInput,
+    setSearchInput,
+    setFilterDisplay,
+    setUserCategoryChoice,
+}) {
     const [categoryItems, setCategoryItems] = useState({
         catI: false,
         catII: false,
         catIII: false,
         catIV: false,
     })
-    console.log(searchInput.priceMin)
+    const productsMax = Math.max(...productData.map((data) => data.price))
+    const productsMin = Math.min(...productData.map((data) => data.price))
+    const [searchState, setSearchState] = useState(true)
 
-    //create state that will store min and max of price
-    //create a slider on the return to set price on the state
-    //filter button will submit the final filteration model
-
-    //problem maker right here, Set global state in order to filter on PRODUCTCARD
     const filterData = () => {
-        if (categoryItems.catI) {
+        setFilterDisplay(false)
+
+        if (searchInput.categoryOne) {
+            setUserCategoryChoice((prevChoice) => {
+                return { ...prevChoice, categoryOne: "men's clothing" }
+            })
+        } else if (!searchInput.categoryOne) {
+            setUserCategoryChoice((prevChoice) => {
+                return { ...prevChoice, categoryOne: '' }
+            })
+        }
+        if (searchInput.categoryTwo) {
+            setUserCategoryChoice((prevChoice) => {
+                return { ...prevChoice, categoryTwo: "women's clothing" }
+            })
+        } else if (!searchInput.categoryTwo) {
+            setUserCategoryChoice((prevChoice) => {
+                return { ...prevChoice, categoryTwo: '' }
+            })
+        }
+        if (searchInput.categoryThree) {
+            setUserCategoryChoice((prevChoice) => {
+                return { ...prevChoice, categoryThree: 'jewelery' }
+            })
+        } else if (!searchInput.categoryThree) {
+            setUserCategoryChoice((prevChoice) => {
+                return { ...prevChoice, categoryThree: '' }
+            })
+        }
+        if (searchInput.categoryFour) {
+            setUserCategoryChoice((prevChoice) => {
+                return { ...prevChoice, categoryFour: 'electronics' }
+            })
+        } else if (!searchInput.categoryFour) {
+            setUserCategoryChoice((prevChoice) => {
+                return { ...prevChoice, categoryFour: '' }
+            })
+        }
+    }
+    /* if (categoryItems.catI) {
             setSearchInput((prevData) => {
                 return { ...prevData, categoryOne: "men's clothing" }
             })
@@ -53,9 +95,9 @@ export default function MainPage({ productData, searchInput, setSearchInput }) {
                 return { ...prevData, categoryFour: '' }
             })
         }
-    }
+    } */
 
-    function handleChange(event) {
+    /*function handleChange(event) {
         const { name, value, type, checked } = event.target
         setCategoryItems((prevFormData) => {
             return {
@@ -63,7 +105,7 @@ export default function MainPage({ productData, searchInput, setSearchInput }) {
                 [name]: type === 'checkbox' ? checked : value,
             }
         })
-    }
+    }*/
     function handleChangeSearch(event) {
         const { name, value, type, checked } = event.target
         setSearchInput((prevFormData) => {
@@ -74,8 +116,6 @@ export default function MainPage({ productData, searchInput, setSearchInput }) {
         })
     }
 
-    console.log(searchInput)
-    const [searchState, setSearchState] = useState(true)
     return (
         <main className="main-container">
             {searchState ? (
@@ -120,47 +160,47 @@ export default function MainPage({ productData, searchInput, setSearchInput }) {
             )}
             <div>
                 <input
-                    name="catI"
+                    name="categoryOne"
                     type="checkbox"
-                    checked={categoryItems.catI}
-                    onChange={handleChange}
+                    checked={searchInput.categoryOne}
+                    onChange={handleChangeSearch}
                 />
                 <label className="main-checkbox-label">Men's Clothing</label>
             </div>
             <div>
                 <input
-                    name="catII"
+                    name="categoryTwo"
                     type="checkbox"
-                    checked={categoryItems.catII}
-                    onChange={handleChange}
+                    checked={searchInput.categoryTwo}
+                    onChange={handleChangeSearch}
                 />
                 <label className="main-checkbox-label">Women's Clothing</label>
             </div>
             <div>
                 <input
-                    name="catIII"
+                    name="categoryThree"
                     type="checkbox"
-                    checked={categoryItems.catIII}
-                    onChange={handleChange}
+                    checked={searchInput.categoryThree}
+                    onChange={handleChangeSearch}
                 />
                 <label className="main-checkbox-label">Jewelry</label>
             </div>
             <div>
                 <input
-                    name="catIV"
+                    name="categoryFour"
                     type="checkbox"
-                    checked={categoryItems.catIV}
-                    onChange={handleChange}
+                    checked={searchInput.categoryFour}
+                    onChange={handleChangeSearch}
                 />
                 <label className="main-checkbox-label">Electronics</label>
             </div>
             <div className="flex flex-wrap w-full">
-                <label className="w-3/5">Min Price:</label>
+                <label className="w-2/5">Min Price:</label>
                 <input
                     className="w-2/5"
                     name="priceMin"
                     type="number"
-                    max="9999"
+                    max={productsMax - 1}
                     value={searchInput.priceMin}
                     onChange={(event) => handleChangeSearch(event)}
                 />
@@ -168,8 +208,8 @@ export default function MainPage({ productData, searchInput, setSearchInput }) {
                     className="w-full"
                     name="priceMin"
                     type="range"
-                    min="0"
-                    max="9999"
+                    min={productsMin}
+                    max={productsMax - 1}
                     onChange={(event) => handleChangeSearch(event)}
                     value={searchInput.priceMin}
                 />
@@ -180,7 +220,7 @@ export default function MainPage({ productData, searchInput, setSearchInput }) {
                     className="w-2/5"
                     name="priceMax"
                     type="number"
-                    max="10000"
+                    max={productsMax}
                     value={searchInput.priceMax}
                     onChange={(event) => handleChangeSearch(event)}
                 />
@@ -188,8 +228,8 @@ export default function MainPage({ productData, searchInput, setSearchInput }) {
                     className="w-full"
                     name="priceMax"
                     type="range"
-                    min="5"
-                    max="10000"
+                    min={productsMin}
+                    max={productsMax}
                     step={10}
                     onChange={(event) => handleChangeSearch(event)}
                     value={searchInput.priceMax}

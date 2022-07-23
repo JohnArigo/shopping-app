@@ -1,35 +1,43 @@
 import './ProductCard.css'
 import { Card, Group, Badge, Button, Text } from '@mantine/core'
+import { useState } from 'react'
 
 export default function ProductCard({
+    cart,
     data,
     setShoppingCart,
     searchInput,
-    setSearchInput,
+    setFilterDisplay,
+    userCategoryChoice,
 }) {
-    const addToCart = (index) => {
-        const updatedData = [...data]
-        const currentData = { ...data[index] }
-        updatedData[index] = currentData
-        setShoppingCart((prevCart) => [...prevCart, currentData])
+    const addToCart = (card) => {
+        const cartItemId = card.id
+        const updatedCart = { ...cart }
+
+        if (updatedCart[cartItemId]) {
+            updatedCart[cartItemId].count = updatedCart[cartItemId].count + 1
+        } else {
+            updatedCart[cartItemId] = { ...card, count: 1 }
+        }
+        setShoppingCart((prevCart) => ({ ...prevCart, ...updatedCart }))
     }
 
     const dataCategoryFilter = () =>
         data.filter((card) => {
             const userCategory = card.category.toLowerCase()
-            if (searchInput.categoryOne === userCategory) {
+            if (userCategoryChoice.categoryOne === userCategory) {
                 return card
-            } else if (searchInput.categoryTwo === userCategory) {
+            } else if (userCategoryChoice.categoryTwo === userCategory) {
                 return card
-            } else if (searchInput.categoryThree === userCategory) {
+            } else if (userCategoryChoice.categoryThree === userCategory) {
                 return card
-            } else if (searchInput.categoryFour === userCategory) {
+            } else if (userCategoryChoice.categoryFour === userCategory) {
                 return card
             } else if (
-                searchInput.categoryTwo === '' &&
-                searchInput.categoryOne === '' &&
-                searchInput.categoryThree === '' &&
-                searchInput.categoryFour === ''
+                userCategoryChoice.categoryTwo === '' &&
+                userCategoryChoice.categoryOne === '' &&
+                userCategoryChoice.categoryThree === '' &&
+                userCategoryChoice.categoryFour === ''
             ) {
                 return card
             }
@@ -64,39 +72,53 @@ export default function ProductCard({
         <body className="product-card-container">
             <section className="product-title-container">
                 <h1>E-Commerence Project</h1>
+                <Button onClick={() => setFilterDisplay(true)}>Filters</Button>
             </section>
 
-            {dataSearchFilter().map((card, index) => {
+            {dataSearchFilter().map((cartItem) => {
+                if (cartItem.title.length > 70) {
+                    cartItem.title = cartItem.title.substring(0, 70)
+                }
                 return (
                     <Card
                         shadow="sm"
                         p="lg"
-                        className="flex flex-col justify-center items-center border border-solid border-black ml-5 mb-2 mt-2 w-56 h-88"
+                        className="flex flex-col justify-center items-center border border-solid border-black ml-5 mb-2 mt-2 w-60 h-96"
                     >
                         <Card.Section>
-                            <img className="h-20 w-20 mt-4" src={card.image} />
+                            <img
+                                className="h-20 w-20 mt-4"
+                                src={cartItem.image}
+                            />
                         </Card.Section>
 
-                        <Group position="apart" className="self-center">
-                            <Text weight={500} className="self-center">
-                                {card.title}
+                        <Group
+                            position="apart"
+                            className="flex flex-col justify-center items-center h-2/6 w-full"
+                        >
+                            <Text weight={500} className="text-center">
+                                {cartItem.title}
                             </Text>
                         </Group>
 
-                        <Text size="sm">${card.price}</Text>
+                        <Text size="sm" className="h-1/6">
+                            ${cartItem.price}
+                        </Text>
+
                         <Badge
-                            className="self-center"
+                            className="self-center h-1/6"
                             color="pink"
                             variant="light"
                         >
-                            {card.rating.rate} / 5
+                            {cartItem.rating.rate} / 5
                         </Badge>
                         <Button
+                            className="h-2/6"
                             variant="light"
                             color="blue"
                             fullWidth
                             style={{ marginTop: 14 }}
-                            onClick={() => addToCart(index)}
+                            onClick={() => addToCart(cartItem)}
                         >
                             Add to Cart
                         </Button>
