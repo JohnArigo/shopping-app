@@ -1,4 +1,3 @@
-import './ProductCard.css'
 import { Card, Group, Badge, Button, Text } from '@mantine/core'
 import { useState } from 'react'
 
@@ -69,9 +68,8 @@ export default function ProductCard({
         })
 
     return (
-        <body className="product-card-container">
-            <section className="product-title-container">
-                <h1>E-Commerence Project</h1>
+        <body className="flex flex-row justify-center flex-wrap overflow-auto h-screen w-screen bg-slate-100">
+            <section className="flex flex-col justify-start w-full ">
                 <Button onClick={() => setFilterDisplay(true)}>Filters</Button>
             </section>
 
@@ -81,9 +79,8 @@ export default function ProductCard({
                 }
                 return (
                     <Card
-                        shadow="sm"
                         p="lg"
-                        className="flex flex-col justify-center items-center border border-solid border-black ml-5 mb-2 mt-2 w-60 h-96"
+                        className="flex flex-col justify-center items-center ml-5 mb-2 mt-2 w-60 h-96 shadow-lg"
                     >
                         <Card.Section>
                             <img

@@ -1,4 +1,3 @@
-import './NavBar.css'
 import cartIcon from './shopping-cart.png'
 
 /*const getTotalCartCount = (cart) => {
@@ -33,10 +32,14 @@ export default function NavBar({ cart, setMainDisplay, setFilterDisplay }) {
     }
 
     return (
-        <nav className="flex justify-between items-center h-2/12 sticky top-0 z-10 bg-emerald-500">
+        <nav className="flex justify-between items-center h-2/12 w-screen sticky top-0 z-10 bg-emerald-500">
             <section>E-Commerence Project</section>
             <section>
-                <img onClick={() => goToCart()} src={cartIcon} />
+                <img
+                    className="mt-1"
+                    onClick={() => goToCart()}
+                    src={cartIcon}
+                />
                 <label className="text-xs bg-red-600 text-stone-50 px-1 align-top">
                     {countCartItem()}
                 </label>

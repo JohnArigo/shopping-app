@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import './MainPage.css'
 import { Button } from '@mantine/core'
 
 export default function MainPage({
@@ -9,12 +8,6 @@ export default function MainPage({
     setFilterDisplay,
     setUserCategoryChoice,
 }) {
-    const [categoryItems, setCategoryItems] = useState({
-        catI: false,
-        catII: false,
-        catIII: false,
-        catIV: false,
-    })
     const productsMax = Math.max(...productData.map((data) => data.price))
     const productsMin = Math.min(...productData.map((data) => data.price))
     const [searchState, setSearchState] = useState(true)
@@ -59,53 +52,7 @@ export default function MainPage({
             })
         }
     }
-    /* if (categoryItems.catI) {
-            setSearchInput((prevData) => {
-                return { ...prevData, categoryOne: "men's clothing" }
-            })
-        } else if (!categoryItems.catI) {
-            setSearchInput((prevData) => {
-                return { ...prevData, categoryOne: '' }
-            })
-        }
-        if (categoryItems.catII) {
-            setSearchInput((prevData) => {
-                return { ...prevData, categoryTwo: "women's clothing" }
-            })
-        } else if (!categoryItems.catII) {
-            setSearchInput((prevData) => {
-                return { ...prevData, categoryTwo: '' }
-            })
-        }
-        if (categoryItems.catIII) {
-            setSearchInput((prevData) => {
-                return { ...prevData, categoryThree: 'jewelery' }
-            })
-        } else if (!categoryItems.catIII) {
-            setSearchInput((prevData) => {
-                return { ...prevData, categoryThree: '' }
-            })
-        }
-        if (categoryItems.catIV) {
-            setSearchInput((prevData) => {
-                return { ...prevData, categoryFour: 'electronics' }
-            })
-        } else if (!categoryItems.catIV) {
-            setSearchInput((prevData) => {
-                return { ...prevData, categoryFour: '' }
-            })
-        }
-    } */
 
-    /*function handleChange(event) {
-        const { name, value, type, checked } = event.target
-        setCategoryItems((prevFormData) => {
-            return {
-                ...prevFormData,
-                [name]: type === 'checkbox' ? checked : value,
-            }
-        })
-    }*/
     function handleChangeSearch(event) {
         const { name, value, type, checked } = event.target
         setSearchInput((prevFormData) => {
@@ -117,17 +64,17 @@ export default function MainPage({
     }
 
     return (
-        <main className="main-container">
+        <main className="flex flex-col items-start">
             {searchState ? (
                 <button
-                    className="initialize-search"
+                    className="w-full h-2/12"
                     onClick={() => setSearchState(false)}
                 >
                     Click to Search
                 </button>
             ) : (
-                <form>
-                    <div className="input-container">
+                <form className="w-full flex flex-col items-start">
+                    <div className="w-full flex flex-row items-center justify-between">
                         <input
                             type="text"
                             className="form-input"
@@ -144,14 +91,14 @@ export default function MainPage({
                             value={searchInput.userSearch}
                         />
                         <h4
-                            className="delete-input"
+                            className="w-1/12"
                             onClick={() => setSearchInput({ userSearch: '' })}
                         >
                             X
                         </h4>
                     </div>
                     <button
-                        className="cancel-button"
+                        className="w-3/6"
                         onClick={() => setSearchState(true)}
                     >
                         Hide
@@ -165,7 +112,7 @@ export default function MainPage({
                     checked={searchInput.categoryOne}
                     onChange={handleChangeSearch}
                 />
-                <label className="main-checkbox-label">Men's Clothing</label>
+                <label className="txt-base">Men's Clothing</label>
             </div>
             <div>
                 <input
@@ -174,7 +121,7 @@ export default function MainPage({
                     checked={searchInput.categoryTwo}
                     onChange={handleChangeSearch}
                 />
-                <label className="main-checkbox-label">Women's Clothing</label>
+                <label className="txt-base">Women's Clothing</label>
             </div>
             <div>
                 <input
@@ -183,7 +130,7 @@ export default function MainPage({
                     checked={searchInput.categoryThree}
                     onChange={handleChangeSearch}
                 />
-                <label className="main-checkbox-label">Jewelry</label>
+                <label className="txt-base">Jewelry</label>
             </div>
             <div>
                 <input
@@ -192,7 +139,7 @@ export default function MainPage({
                     checked={searchInput.categoryFour}
                     onChange={handleChangeSearch}
                 />
-                <label className="main-checkbox-label">Electronics</label>
+                <label className="txt-base">Electronics</label>
             </div>
             <div className="flex flex-wrap w-full">
                 <label className="w-2/5">Min Price:</label>
