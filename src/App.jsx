@@ -5,6 +5,8 @@ import { useState } from 'react'
 import ShoppingCart from './ShoppingCart'
 import ProductCard from './ProductCard'
 import data from './data.json'
+import { cartRoute, homeRoute, productRoute } from './routes-constants'
+import { Route, Routes } from 'react-router-dom'
 
 function App() {
     const [productData, setProductData] = useState(data)
@@ -34,7 +36,48 @@ function App() {
                 setMainDisplay={setMainDisplay}
                 setFilterDisplay={setFilterDisplay}
             />
-            {filterDisplay && !mainDisplay ? (
+
+            <Routes>
+                <Route
+                    path={homeRoute}
+                    element={
+                        <ProductCard
+                            cart={shoppingCart}
+                            data={productData}
+                            setShoppingCart={setShoppingCart}
+                            searchInput={searchInput}
+                            setSearchInput={setSearchInput}
+                            setFilterDisplay={setFilterDisplay}
+                            userCategoryChoice={userCategoryChoice}
+                            setUserCategoryChoice={setUserCategoryChoice}
+                        />
+                    }
+                />
+                <Route
+                    path={cartRoute}
+                    element={
+                        <ShoppingCart
+                            cart={shoppingCart}
+                            setShoppingCart={setShoppingCart}
+                            setMainDisplay={setMainDisplay}
+                        />
+                    }
+                />
+                <Route
+                    path={productRoute}
+                    elemnt={
+                        <MainPage
+                            productData={productData}
+                            searchInput={searchInput}
+                            setSearchInput={setSearchInput}
+                            setFilterDisplay={setFilterDisplay}
+                            userCategoryChoice={userCategoryChoice}
+                            setUserCategoryChoice={setUserCategoryChoice}
+                        />
+                    }
+                ></Route>
+            </Routes>
+            {/* {filterDisplay && !mainDisplay ? (
                 <MainPage
                     productData={productData}
                     searchInput={searchInput}
@@ -60,7 +103,7 @@ function App() {
                     userCategoryChoice={userCategoryChoice}
                     setUserCategoryChoice={setUserCategoryChoice}
                 />
-            )}
+            )} */}
 
             <Footer />
         </body>

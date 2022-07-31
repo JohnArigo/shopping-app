@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+import { cartRoute, homeRoute, productRoute } from './routes-constants'
 import cartIcon from './shopping-cart.png'
 
 /*const getTotalCartCount = (cart) => {
@@ -13,6 +15,21 @@ import cartIcon from './shopping-cart.png'
 
     return total
 }*/
+
+const links = [
+    {
+        title: 'Home',
+        link: homeRoute,
+    },
+    {
+        title: 'Cart',
+        link: cartRoute,
+    },
+    {
+        title: 'Product',
+        link: productRoute,
+    },
+]
 
 export default function NavBar({ cart, setMainDisplay, setFilterDisplay }) {
     const countCartItem = () => {
@@ -34,6 +51,9 @@ export default function NavBar({ cart, setMainDisplay, setFilterDisplay }) {
     return (
         <nav className="flex justify-between items-center h-2/12 w-screen sticky top-0 z-10 bg-emerald-500">
             <section>E-Commerence Project</section>
+            {links.map((currLink) => {
+                return <Link to={currLink.link}>{currLink.title}</Link>
+            })}
             <section>
                 <img
                     className="mt-1"
