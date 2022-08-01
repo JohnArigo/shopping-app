@@ -1,20 +1,18 @@
 import { useState, useEffect } from 'react'
 import { Button } from '@mantine/core'
+import { homeRoute } from './routes-constants'
+import { Link } from 'react-router-dom'
 
 export default function MainPage({
-    productData,
     searchInput,
     setSearchInput,
-    setFilterDisplay,
     setUserCategoryChoice,
+    productsMax,
+    productsMin,
 }) {
-    const productsMax = Math.max(...productData.map((data) => data.price))
-    const productsMin = Math.min(...productData.map((data) => data.price))
     const [searchState, setSearchState] = useState(true)
 
     const filterData = () => {
-        setFilterDisplay(false)
-
         if (searchInput.categoryOne) {
             setUserCategoryChoice((prevChoice) => {
                 return { ...prevChoice, categoryOne: "men's clothing" }
@@ -64,20 +62,20 @@ export default function MainPage({
     }
 
     return (
-        <main className="flex flex-col items-start">
+        <main className="flex flex-col items-center h-screen w-screen">
             {searchState ? (
                 <button
-                    className="w-full h-2/12"
+                    className="w-full h-1/4 shadow-md mb-5"
                     onClick={() => setSearchState(false)}
                 >
-                    Click to Search
+                    Click to Search for Keywords
                 </button>
             ) : (
-                <form className="w-full flex flex-col items-start">
-                    <div className="w-full flex flex-row items-center justify-between">
+                <form className="w-full flex flex-col items-start h-1/4 mb-5">
+                    <div className="w-full flex flex-row items-center justify-between h-1/2 shadow-lg">
                         <input
                             type="text"
-                            className="form-input"
+                            className="w-11/12 h-full"
                             name="searchInput"
                             onChange={(event) =>
                                 setSearchInput((prevData) => {
@@ -91,98 +89,110 @@ export default function MainPage({
                             value={searchInput.userSearch}
                         />
                         <h4
-                            className="w-1/12"
+                            className="w-1/12 self-center"
                             onClick={() => setSearchInput({ userSearch: '' })}
                         >
                             X
                         </h4>
                     </div>
-                    <button
-                        className="w-3/6"
+                    <Button
+                        className="w-3/6 self-center bg-stone-200 shadow-sm text-black"
                         onClick={() => setSearchState(true)}
                     >
                         Hide
-                    </button>
+                    </Button>
                 </form>
             )}
-            <div>
-                <input
-                    name="categoryOne"
-                    type="checkbox"
-                    checked={searchInput.categoryOne}
-                    onChange={handleChangeSearch}
-                />
-                <label className="txt-base">Men's Clothing</label>
-            </div>
-            <div>
-                <input
-                    name="categoryTwo"
-                    type="checkbox"
-                    checked={searchInput.categoryTwo}
-                    onChange={handleChangeSearch}
-                />
-                <label className="txt-base">Women's Clothing</label>
-            </div>
-            <div>
-                <input
-                    name="categoryThree"
-                    type="checkbox"
-                    checked={searchInput.categoryThree}
-                    onChange={handleChangeSearch}
-                />
-                <label className="txt-base">Jewelry</label>
-            </div>
-            <div>
-                <input
-                    name="categoryFour"
-                    type="checkbox"
-                    checked={searchInput.categoryFour}
-                    onChange={handleChangeSearch}
-                />
-                <label className="txt-base">Electronics</label>
-            </div>
-            <div className="flex flex-wrap w-full">
-                <label className="w-2/5">Min Price:</label>
-                <input
-                    className="w-2/5"
-                    name="priceMin"
-                    type="number"
-                    max={productsMax - 1}
-                    value={searchInput.priceMin}
-                    onChange={(event) => handleChangeSearch(event)}
-                />
-                <input
-                    className="w-full"
-                    name="priceMin"
-                    type="range"
-                    min={productsMin}
-                    max={productsMax - 1}
-                    onChange={(event) => handleChangeSearch(event)}
-                    value={searchInput.priceMin}
-                />
-            </div>
-            <div className="flex flex-wrap w-full">
-                <label className="w-2/5">Max Price:</label>
-                <input
-                    className="w-2/5"
-                    name="priceMax"
-                    type="number"
-                    max={productsMax}
-                    value={searchInput.priceMax}
-                    onChange={(event) => handleChangeSearch(event)}
-                />
-                <input
-                    className="w-full"
-                    name="priceMax"
-                    type="range"
-                    min={productsMin}
-                    max={productsMax}
-                    step={10}
-                    onChange={(event) => handleChangeSearch(event)}
-                    value={searchInput.priceMax}
-                />
-            </div>
-            <button onClick={() => filterData()}>Filter</button>
+            <section className="flex flex-col items-start w-full h-1/4 justify-center">
+                <div>
+                    <input
+                        name="categoryOne"
+                        type="checkbox"
+                        checked={searchInput.categoryOne}
+                        onChange={handleChangeSearch}
+                    />
+                    <label className="ml-1">Men's Clothing</label>
+                </div>
+                <div>
+                    <input
+                        name="categoryTwo"
+                        type="checkbox"
+                        checked={searchInput.categoryTwo}
+                        onChange={handleChangeSearch}
+                    />
+                    <label className="ml-1">Women's Clothing</label>
+                </div>
+                <div>
+                    <input
+                        name="categoryThree"
+                        type="checkbox"
+                        checked={searchInput.categoryThree}
+                        onChange={handleChangeSearch}
+                    />
+                    <label className="ml-1">Jewelry</label>
+                </div>
+                <div>
+                    <input
+                        name="categoryFour"
+                        type="checkbox"
+                        checked={searchInput.categoryFour}
+                        onChange={handleChangeSearch}
+                    />
+                    <label className="ml-1">Electronics</label>
+                </div>
+            </section>
+            <section className="h-1/4">
+                <div className="flex flex-wrap w-full">
+                    <label className="w-2/5">Min Price:</label>
+                    <input
+                        className="w-2/5"
+                        name="priceMin"
+                        type="number"
+                        max={productsMax - 1}
+                        value={searchInput.priceMin}
+                        onChange={(event) => handleChangeSearch(event)}
+                    />
+                    <input
+                        className="w-full"
+                        name="priceMin"
+                        type="range"
+                        min={productsMin}
+                        max={productsMax - 1}
+                        onChange={(event) => handleChangeSearch(event)}
+                        value={searchInput.priceMin}
+                    />
+                </div>
+
+                <div className="flex flex-wrap w-full">
+                    <label className="w-2/5">Max Price:</label>
+                    <input
+                        className="w-2/5"
+                        name="priceMax"
+                        type="number"
+                        max={productsMax}
+                        value={searchInput.priceMax}
+                        onChange={(event) => handleChangeSearch(event)}
+                    />
+                    <input
+                        className="w-full"
+                        name="priceMax"
+                        type="range"
+                        min={productsMin}
+                        max={productsMax}
+                        step={10}
+                        onChange={(event) => handleChangeSearch(event)}
+                        value={searchInput.priceMax}
+                    />
+                </div>
+            </section>
+            <Link to={homeRoute} className="h-1/4">
+                <Button
+                    className="bg-stone-200 shadow-md text-black"
+                    onClick={() => filterData()}
+                >
+                    Filter
+                </Button>
+            </Link>
         </main>
     )
 }

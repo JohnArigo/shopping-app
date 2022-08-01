@@ -1,12 +1,12 @@
 import { Card, Group, Badge, Button, Text } from '@mantine/core'
-import { useState } from 'react'
+import { filterRoute } from './routes-constants'
+import { Link } from 'react-router-dom'
 
 export default function ProductCard({
     cart,
     data,
     setShoppingCart,
     searchInput,
-    setFilterDisplay,
     userCategoryChoice,
 }) {
     const addToCart = (card) => {
@@ -69,9 +69,12 @@ export default function ProductCard({
 
     return (
         <body className="flex flex-row justify-center flex-wrap overflow-auto h-screen w-screen bg-slate-100">
-            <section className="flex flex-col justify-start w-full ">
-                <Button onClick={() => setFilterDisplay(true)}>Filters</Button>
-            </section>
+            <Link
+                to={filterRoute}
+                className="flex flex-col items-end w-full mb-16 mt-2"
+            >
+                <Button className="shadow-sm text-black w-full">Filters</Button>
+            </Link>
 
             {dataSearchFilter().map((cartItem) => {
                 if (cartItem.title.length > 70) {

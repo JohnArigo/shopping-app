@@ -2,6 +2,8 @@ import { Button } from '@mantine/core'
 import { useState } from 'react'
 import trashIcon from './trash-bin.png'
 import './ShoppingCart.css'
+import { Link } from 'react-router-dom'
+import { homeRoute } from './routes-constants'
 
 export default function ShoppingCart({
     cart,
@@ -34,11 +36,15 @@ export default function ShoppingCart({
         Object.keys(cart).length == undefined
     ) {
         return (
-            <body className="h-screen w-screen bg-rose-400 flex flex-row flex-wrap justify-center items-center">
-                <main className="w-full text-center h-2/12">
-                    Looks like theres no here, go back
+            <body className="h-screen w-screen bg-white flex flex-row flex-wrap justify-center items-center">
+                <main className="w-full text-center h-2/12 ">
+                    There are no items in your cart
                 </main>
-                <Button onClick={() => setMainDisplay(false)}>Return</Button>
+                <Link to={homeRoute}>
+                    <Button className="bg-stone-200 shadow-sm text-black">
+                        Return
+                    </Button>
+                </Link>
             </body>
         )
     } else {

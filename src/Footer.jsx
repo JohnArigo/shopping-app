@@ -2,6 +2,8 @@ import github from './github.png'
 import facebook from './facebook.png'
 import linkedIn from './linkedIn.png'
 import email from './email.png'
+import { Link } from 'react-router-dom'
+import { feedbackRoute } from './routes-constants'
 
 export default function Footer() {
     return (
@@ -24,10 +26,10 @@ export default function Footer() {
                 </div>
             </section>
             <section className="flex flex-row items-center w-3/6">
-                <div className="mr-3">
-                    <img src={email} />
-                </div>
-                <div className="mr-3">copyright info here</div>
+                <Link to={feedbackRoute} className="mr-3">
+                    <img className="h-10 w-10" src={email} />
+                </Link>
+                <div className="mr-1">Feedback Here!</div>
             </section>
         </footer>
     )

@@ -5,20 +5,28 @@ import { useState } from 'react'
 import ShoppingCart from './ShoppingCart'
 import ProductCard from './ProductCard'
 import data from './data.json'
-import { cartRoute, homeRoute, productRoute } from './routes-constants'
+import {
+    cartRoute,
+    homeRoute,
+    filterRoute,
+    feedbackRoute,
+} from './routes-constants'
 import { Route, Routes } from 'react-router-dom'
+import Feedback from './Feedback'
 
 function App() {
     const [productData, setProductData] = useState(data)
     const [shoppingCart, setShoppingCart] = useState({})
+    const productsMax = Math.max(...productData.map((data) => data.price))
+    const productsMin = Math.min(...productData.map((data) => data.price))
     const [searchInput, setSearchInput] = useState({
         userSearch: '',
         categoryOne: false,
         categoryTwo: false,
         categoryThree: false,
         categoryFour: false,
-        priceMin: 0,
-        priceMax: 10000,
+        priceMin: productsMin,
+        priceMax: productsMax,
     })
     const [userCategoryChoice, setUserCategoryChoice] = useState({
         categoryOne: '',
@@ -26,16 +34,10 @@ function App() {
         categoryThree: '',
         categoryFour: '',
     })
-    const [mainDisplay, setMainDisplay] = useState(false)
-    const [filterDisplay, setFilterDisplay] = useState(false)
 
     return (
         <body className="app-body">
-            <NavBar
-                cart={shoppingCart}
-                setMainDisplay={setMainDisplay}
-                setFilterDisplay={setFilterDisplay}
-            />
+            <NavBar cart={shoppingCart} />
 
             <Routes>
                 <Route
@@ -47,7 +49,6 @@ function App() {
                             setShoppingCart={setShoppingCart}
                             searchInput={searchInput}
                             setSearchInput={setSearchInput}
-                            setFilterDisplay={setFilterDisplay}
                             userCategoryChoice={userCategoryChoice}
                             setUserCategoryChoice={setUserCategoryChoice}
                         />
@@ -59,51 +60,25 @@ function App() {
                         <ShoppingCart
                             cart={shoppingCart}
                             setShoppingCart={setShoppingCart}
-                            setMainDisplay={setMainDisplay}
                         />
                     }
                 />
                 <Route
-                    path={productRoute}
-                    elemnt={
+                    path={filterRoute}
+                    element={
                         <MainPage
                             productData={productData}
                             searchInput={searchInput}
                             setSearchInput={setSearchInput}
-                            setFilterDisplay={setFilterDisplay}
                             userCategoryChoice={userCategoryChoice}
                             setUserCategoryChoice={setUserCategoryChoice}
+                            productsMin={productsMin}
+                            productsMax={productsMax}
                         />
                     }
                 ></Route>
+                <Route path={feedbackRoute} element={<Feedback />}></Route>
             </Routes>
-            {/* {filterDisplay && !mainDisplay ? (
-                <MainPage
-                    productData={productData}
-                    searchInput={searchInput}
-                    setSearchInput={setSearchInput}
-                    setFilterDisplay={setFilterDisplay}
-                    userCategoryChoice={userCategoryChoice}
-                    setUserCategoryChoice={setUserCategoryChoice}
-                />
-            ) : mainDisplay && !filterDisplay ? (
-                <ShoppingCart
-                    cart={shoppingCart}
-                    setShoppingCart={setShoppingCart}
-                    setMainDisplay={setMainDisplay}
-                />
-            ) : (
-                <ProductCard
-                    cart={shoppingCart}
-                    data={productData}
-                    setShoppingCart={setShoppingCart}
-                    searchInput={searchInput}
-                    setSearchInput={setSearchInput}
-                    setFilterDisplay={setFilterDisplay}
-                    userCategoryChoice={userCategoryChoice}
-                    setUserCategoryChoice={setUserCategoryChoice}
-                />
-            )} */}
 
             <Footer />
         </body>
