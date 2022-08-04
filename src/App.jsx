@@ -10,9 +10,11 @@ import {
     homeRoute,
     filterRoute,
     feedbackRoute,
+    personalCheckoutRoute,
 } from './routes-constants'
 import { Route, Routes } from 'react-router-dom'
 import Feedback from './Feedback'
+import PersonalCheckout from './PersonalCheckout'
 
 function App() {
     const [productData, setProductData] = useState(data)
@@ -33,6 +35,21 @@ function App() {
         categoryTwo: '',
         categoryThree: '',
         categoryFour: '',
+    })
+    const [checkoutPersonal, setCheckoutPersonal] = useState({
+        username: '',
+        address: '',
+        secondAddress: '',
+        city: '',
+        state: '',
+        zip: 0,
+        billingCheck: false,
+        billingName: '',
+        billingAddress: '',
+        billingSecondAddress: '',
+        billingCity: '',
+        billingState: '',
+        billingZip: 0,
     })
 
     return (
@@ -78,6 +95,15 @@ function App() {
                     }
                 ></Route>
                 <Route path={feedbackRoute} element={<Feedback />}></Route>
+                <Route
+                    path={personalCheckoutRoute}
+                    element={
+                        <PersonalCheckout
+                            checkoutPersonal={checkoutPersonal}
+                            setCheckoutPersonal={setCheckoutPersonal}
+                        />
+                    }
+                />
             </Routes>
 
             <Footer />

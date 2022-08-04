@@ -11,7 +11,7 @@ export default function Footer() {
             <section className="flex flex-row items-center w-3/6">
                 <div className="ml-3">
                     <a href="https://linkedIn.com/in/john-arigo">
-                        <img className="h-9 w-9" src={github} />
+                        <img className="h-9 w-9" src={linkedIn} />
                     </a>
                 </div>
                 <div className="ml-3">
@@ -21,7 +21,7 @@ export default function Footer() {
                 </div>
                 <div className="ml-3">
                     <a href="https://github.com/RaggedyRagz">
-                        <img className="h-10 w-10" src={linkedIn} />
+                        <img className="h-10 w-10" src={github} />
                     </a>
                 </div>
             </section>
@@ -29,7 +29,7 @@ export default function Footer() {
                 <Link to={feedbackRoute} className="mr-3">
                     <img className="h-10 w-10" src={email} />
                 </Link>
-                <div className="mr-1">Feedback Here!</div>
+                <div className="mr-1">Send a feedback</div>
             </section>
         </footer>
     )

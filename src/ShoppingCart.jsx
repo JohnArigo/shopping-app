@@ -1,9 +1,7 @@
 import { Button } from '@mantine/core'
-import { useState } from 'react'
 import trashIcon from './trash-bin.png'
-import './ShoppingCart.css'
 import { Link } from 'react-router-dom'
-import { homeRoute } from './routes-constants'
+import { homeRoute, personalCheckoutRoute } from './routes-constants'
 
 export default function ShoppingCart({
     cart,
@@ -31,6 +29,19 @@ export default function ShoppingCart({
         delete updatedCart[itemId]
         setShoppingCart({ ...updatedCart })
     }
+    const findPrice = () => {
+        var totalPrice = 0
+        const currentCart = { ...cart }
+        Object.keys(cart).forEach((item) => {
+            const itemPrice = currentCart[item].price
+            const itemQuantity = currentCart[item].count
+            const itemTruePrice = itemPrice * itemQuantity
+            totalPrice += itemTruePrice
+        })
+
+        return totalPrice
+    }
+
     if (
         Object.keys(cart).length == 0 ||
         Object.keys(cart).length == undefined
@@ -71,14 +82,14 @@ export default function ShoppingCart({
                                         className=""
                                         onClick={() => addToQuantity(itemId)}
                                     >
-                                        <h2 className="text-base text-black">
+                                        <h2 className="text-base text-black bg-green-600 w-6 rounded-lg">
                                             +
                                         </h2>
                                     </Button>
                                     <Button
                                         onClick={() => minusToQuantity(itemId)}
                                     >
-                                        <h2 className="text-base text-black">
+                                        <h2 className="text-base text-black bg-red-600 w-6 rounded-lg">
                                             -
                                         </h2>
                                     </Button>
@@ -93,12 +104,26 @@ export default function ShoppingCart({
                         </main>
                     )
                 })}
-                <Button
-                    className="w-full text-lg text-black"
-                    onClick={() => setMainDisplay(false)}
-                >
-                    Return
-                </Button>
+                <div className="w-full flex justify-end">
+                    <h1>Cart Total: ${findPrice().toFixed(2)}</h1>
+                </div>
+                {Object.keys(cart).length == 0 ||
+                Object.keys(cart).length == undefined ? null : (
+                    <Link
+                        className="w-full flex justify-end "
+                        to={personalCheckoutRoute}
+                    >
+                        <Button className="text-black ">Checkout</Button>
+                    </Link>
+                )}
+                <Link className="w-full flex justify-center" to={homeRoute}>
+                    <Button
+                        className="w-full text-lg text-black"
+                        onClick={() => setMainDisplay(false)}
+                    >
+                        Return
+                    </Button>
+                </Link>
             </body>
         )
     }
