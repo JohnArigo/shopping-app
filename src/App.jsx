@@ -1,7 +1,7 @@
 import NavBar from './NavBar'
 import MainPage from './MainPage'
 import Footer from './Footer'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ShoppingCart from './ShoppingCart'
 import ProductCard from './ProductCard'
 import data from './data.json'
@@ -20,9 +20,15 @@ import PersonalCheckout from './PersonalCheckout'
 import PaymentCheckout from './PaymentCheckout'
 import Order from './Order'
 import { check } from 'prettier'
-
+//why is my API not setting normally? Put it on another state and it passes fine
 function App() {
     const [productData, setProductData] = useState(data)
+    useEffect(() => {
+        fetch('https://fakestoreapi.com/products')
+            .then((res) => res.json())
+            .then((data) => setProductData(data))
+    }, [])
+
     const [shoppingCart, setShoppingCart] = useState({})
     const productsMax = Math.max(...productData.map((data) => data.price))
     const productsMin = Math.min(...productData.map((data) => data.price))
@@ -56,11 +62,24 @@ function App() {
         billingState: '',
         billingZipCode: Number,
         card: '',
-        year: undefined,
-        month: undefined,
-        cvv: undefined,
+        year: 2022,
+        month: 1,
+        cvv: '',
     })
-
+    const billingAddressCheck = () => {
+        if (checkout.billingCheck) {
+            setCheckout((prevState) => ({
+                ...prevState,
+                billingName: checkout.username,
+                billingAddress: checkout.address,
+                billingSecondAddress: checkout.secondAddress,
+                billingCity: checkout.city,
+                billingState: checkout.state,
+                billingZipCode: checkout.zipCode,
+            }))
+        }
+    }
+    console.log(checkout)
     return (
         <body className="app-body">
             <NavBar cart={shoppingCart} />
