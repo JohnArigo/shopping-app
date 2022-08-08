@@ -16,14 +16,6 @@ export default function PaymentCheckout({ checkout, setCheckout }) {
         })
     }
 
-    /* const testing = () => {
-        if (checkout.card[0] === undefined || checkout.card[0] === 0) {
-            return 'none'
-        } else {
-            return 'hello's
-        }
-    } */
-
     var creditDebit = checkout.card
 
     const cardFunction = () => {
@@ -59,6 +51,7 @@ export default function PaymentCheckout({ checkout, setCheckout }) {
                             }
                         }}
                         onKeyDown={cardFunction()}
+                        required
                     />
                     <label className="w-4/12">Expiration</label>
                     <select
@@ -66,6 +59,7 @@ export default function PaymentCheckout({ checkout, setCheckout }) {
                         name="month"
                         value={checkout.month}
                         onChange={handleChange}
+                        required
                     >
                         <option>1</option>
                         <option>2</option>
@@ -85,6 +79,7 @@ export default function PaymentCheckout({ checkout, setCheckout }) {
                         name="year"
                         value={checkout.year}
                         onChange={handleChange}
+                        required
                     >
                         <option>2022</option>
                         <option>2023</option>
@@ -109,6 +104,7 @@ export default function PaymentCheckout({ checkout, setCheckout }) {
                                 event.preventDefault()
                             }
                         }}
+                        required
                     />
                 </section>
             </form>

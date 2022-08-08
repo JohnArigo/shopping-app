@@ -46,7 +46,7 @@ function App() {
         address: '',
         secondAddress: String,
         city: '',
-        state: '',
+        state: 'AL',
         zipCode: Number,
         billingCheck: false,
         billingName: '',

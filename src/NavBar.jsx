@@ -13,21 +13,11 @@ export default function NavBar({ cart, setMainDisplay, setFilterDisplay }) {
         return result
     }
 
-    const goToCart = () => {
-        console.log('clicked')
-        setFilterDisplay(false)
-        setMainDisplay(true)
-    }
-
     return (
         <nav className="flex justify-between items-center h-2/12 w-screen sticky top-0 z-10 bg-emerald-500">
             <Link to={homeRoute}>E-Commerence Project</Link>
             <Link to={cartRoute}>
-                <img
-                    className="mt-1"
-                    onClick={() => goToCart()}
-                    src={cartIcon}
-                />
+                <img className="mt-1" src={cartIcon} />
                 <label className="text-xs bg-red-600 text-stone-50 px-1 align-top">
                     {countCartItem()}
                 </label>

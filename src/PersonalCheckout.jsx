@@ -25,6 +25,7 @@ export default function Checkout({ checkout, setCheckout }) {
                         name="username"
                         value={checkout.username}
                         onChange={handleChange}
+                        required
                     />
                     <label className="w-11/12 text-black">
                         Street Address:
@@ -36,6 +37,7 @@ export default function Checkout({ checkout, setCheckout }) {
                         name="address"
                         value={checkout.address}
                         onChange={handleChange}
+                        required
                     />
                     <label className="w-11/12 text-black">
                         Building/Apartment/Unit #:
@@ -47,6 +49,7 @@ export default function Checkout({ checkout, setCheckout }) {
                         name="secondAddress"
                         value={checkout.secondAddress}
                         onChange={handleChange}
+                        required
                     />
                     <div className="w-11/12 h-12 flex flex-row flex-wrap mb-5">
                         <label className="w-1/3 text-black">City:</label>
@@ -58,6 +61,7 @@ export default function Checkout({ checkout, setCheckout }) {
                             name="city"
                             value={checkout.city}
                             onChange={handleChange}
+                            required
                         />
 
                         <select
@@ -65,6 +69,7 @@ export default function Checkout({ checkout, setCheckout }) {
                             name="state"
                             value={checkout.state}
                             onChange={handleChange}
+                            required
                         >
                             <option value="AL">AL</option>
                             <option value="AK">AK</option>
@@ -120,7 +125,7 @@ export default function Checkout({ checkout, setCheckout }) {
                         </select>
                         <input
                             className="w-1/3 border-solid border-2"
-                            type="number"
+                            type="tel"
                             name="zipcode"
                             value={checkout.zipcode}
                             onChange={handleChange}
@@ -131,6 +136,7 @@ export default function Checkout({ checkout, setCheckout }) {
                                     event.preventDefault()
                                 }
                             }}
+                            required
                         />
                     </div>
                     <div className="flex flex-row w-11/12">
@@ -139,12 +145,13 @@ export default function Checkout({ checkout, setCheckout }) {
                             name="billingCheck"
                             checked={checkout.billingCheck}
                             onChange={handleChange}
+                            required
                         />
                         <label>Is this the same as your billing address?</label>
                     </div>
                 </section>
 
-                {checkout.billingCheck ? (
+                {checkout.billingCheck ? null : (
                     <section className="w-full h-full flex flex-col items-center justify-start mt-5">
                         <h1>Billing Address</h1>
                         <label className="w-11/12 text-black">Full Name:</label>
@@ -154,6 +161,7 @@ export default function Checkout({ checkout, setCheckout }) {
                             name="billingName"
                             value={checkout.billingName}
                             onChange={handleChange}
+                            required
                         />
                         <label className="w-11/12 text-black">
                             Street Address:
@@ -164,6 +172,7 @@ export default function Checkout({ checkout, setCheckout }) {
                             name="billingAddress"
                             value={checkout.billingAddress}
                             onChange={handleChange}
+                            required
                         />
                         <label className="w-11/12 text-black">
                             Building/Apartment/Unit #:
@@ -174,6 +183,7 @@ export default function Checkout({ checkout, setCheckout }) {
                             name="billingSecondAddress"
                             value={checkout.billingSecondAddress}
                             onChange={handleChange}
+                            required
                         />
                         <div className="w-11/12 h-12 flex flex-row flex-wrap mb-5">
                             <label className="w-1/3 text-black">City:</label>
@@ -185,6 +195,7 @@ export default function Checkout({ checkout, setCheckout }) {
                                 name="billingCity"
                                 value={checkout.billingCity}
                                 onChange={handleChange}
+                                required
                             />
 
                             <select
@@ -192,6 +203,7 @@ export default function Checkout({ checkout, setCheckout }) {
                                 name="billingState"
                                 value={checkout.billingState}
                                 onChange={handleChange}
+                                required
                             >
                                 <option value="AL">AL</option>
                                 <option value="AK">AK</option>
@@ -258,10 +270,11 @@ export default function Checkout({ checkout, setCheckout }) {
                                         event.preventDefault()
                                     }
                                 }}
+                                required
                             />
                         </div>
                     </section>
-                ) : null}
+                )}
                 <Link className="w-full mb-5" to={paymentCheckoutRoute}>
                     <Button className="bg-stone-200 shadow-md text-black w-full rounded-md text-center mt-5">
                         Next

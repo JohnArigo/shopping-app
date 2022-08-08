@@ -1,4 +1,5 @@
-import { Button } from '@mantine/core'
+import { Button, Modal } from '@mantine/core'
+import { useState } from 'react'
 
 export default function Order({ shoppingCart, checkout }) {
     const findPrice = () => {
@@ -14,25 +15,47 @@ export default function Order({ shoppingCart, checkout }) {
         return totalPrice
     }
 
+    const [modalState, setModalState] = useState(false)
+
     return (
         <main className="w-screen h-screen">
+            <Modal
+                className="text-center"
+                opened={modalState}
+                onClose={() => setModalState(false)}
+                title="Thank you!"
+            >
+                Don't know backend yet but when I do... I'll learn how to send
+                this lmao <br />
+                Thank you for testing it out, dont forget to click the email
+                button for feedback.
+            </Modal>
             <section className="w-full h-full flex flex-row flex-wrap justify-center">
-                <div className="h-2/6 w-10/12 mt-5 border-solid border-2 rounded-lg border-stone-300 shadow-lg">
-                    <h1>Please very the following information...</h1>
-                    <h1>{checkout.name}</h1>
-                    <h1>{checkout.address}</h1>
-                    <h1>
-                        {checkout.secondAddress ? checkout.secondAddress : null}
-                    </h1>
+                <div className="h-2/6 w-11/12 mt-5 border-solid border-2 rounded-lg border-stone-300 shadow-lg flex items-center justify-center">
                     <div>
-                        <h1>{checkout.city}</h1>
-                        <h1>{checkout.state}</h1>
-                        <h1>{checkout.zip}</h1>
+                        <h1 className="text-xl w-full">
+                            Please very the following information...
+                        </h1>
+                        <h1 className="text-lg">{checkout.username}</h1>
+                        <h1 className="text-lg">{checkout.address}</h1>
+                        <h1 className="text-lg">
+                            {checkout.secondAddress
+                                ? checkout.secondAddress
+                                : null}
+                        </h1>
+                        <div className="w-full flex flex-row">
+                            <h1 className="text-md">{checkout.city}</h1>
+                            <h1 className="text-md ml-2">{checkout.state}</h1>
+                            <h1 className="text-md ml-2">{checkout.zipcode}</h1>
+                        </div>
+                        <div>
+                            Card: XXXX XXXX XXXX {checkout.card.slice(15)}
+                        </div>
                     </div>
-                    <div>Card: XXXX XXXX XXXX {checkout.card.slice(15)}</div>
                 </div>
 
-                <div className="h-3/6 w-full">
+                <div className="h-3/6 w-full flex justify-center flex-row flex-wrap">
+                    <h1 className="w-full text-center">Verify your items...</h1>
                     <div className=" overflow-auto flex flex-col items-start h-full w-full bg-white">
                         {Object.keys(shoppingCart).map((itemId) => {
                             const item = shoppingCart[itemId]
@@ -55,8 +78,7 @@ export default function Order({ shoppingCart, checkout }) {
                                     </section>
                                     <div className="w-full flex justify-end">
                                         <h1>
-                                            Cart Total: $
-                                            {findPrice().toFixed(2)}
+                                            Total: ${findPrice().toFixed(2)}
                                         </h1>
                                     </div>
                                 </main>
@@ -64,7 +86,10 @@ export default function Order({ shoppingCart, checkout }) {
                         })}
                     </div>
                 </div>
-                <Button className="bg-stone-200 shadow-md text-black w-full rounded-md text-center mt-5">
+                <Button
+                    onClick={() => setModalState(true)}
+                    className="bg-stone-200 shadow-md text-black w-full rounded-md text-center mt-5"
+                >
                     Order
                 </Button>
             </section>
