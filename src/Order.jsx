@@ -55,12 +55,14 @@ export default function Order({ shoppingCart, checkout }) {
                 </div>
 
                 <div className="h-3/6 w-full flex justify-center flex-row flex-wrap">
-                    <h1 className="w-full text-center">Verify your items...</h1>
-                    <div className=" overflow-auto flex flex-col items-start h-full w-full bg-white">
+                    <h1 className="w-full text-center text-xl">
+                        Verify your items...
+                    </h1>
+                    <div className=" overflow-auto flex flex-col items-start h-full w-full">
                         {Object.keys(shoppingCart).map((itemId) => {
                             const item = shoppingCart[itemId]
                             return (
-                                <main className="flex flex-row items-center flex-wrap w-11/12 mt-2 mb-2 ml-2 rounded-md border-solid h-40">
+                                <main className="flex flex-row items-center flex-wrap w-11/12 mt-2 mb-2 ml-2 rounded-md border-solid shadow-sm h-40">
                                     <div className="w-3/12">
                                         <img
                                             className="h-14 w-14 rounded-md"
@@ -76,14 +78,12 @@ export default function Order({ shoppingCart, checkout }) {
                                             Quantity:{item.count}
                                         </div>
                                     </section>
-                                    <div className="w-full flex justify-end">
-                                        <h1>
-                                            Total: ${findPrice().toFixed(2)}
-                                        </h1>
-                                    </div>
                                 </main>
                             )
                         })}
+                        <div className="w-full flex justify-end">
+                            <h1>Total: ${findPrice().toFixed(2)}</h1>
+                        </div>
                     </div>
                 </div>
                 <Button
