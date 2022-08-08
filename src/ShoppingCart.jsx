@@ -67,7 +67,7 @@ export default function ShoppingCart({
                         <main className="flex flex-row items-center flex-wrap w-11/12 mt-2 mb-2 ml-2 rounded-md border-solid h-96">
                             <div className="w-3/12">
                                 <img
-                                    className="h-28 w-28 rounded-md"
+                                    className="h-20 w-20 rounded-md"
                                     src={item.image}
                                 />
                             </div>

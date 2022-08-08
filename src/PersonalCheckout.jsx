@@ -1,23 +1,16 @@
 import { Button } from '@mantine/core'
 import { Link } from 'react-router-dom'
-import { cartRoute } from './routes-constants'
+import { cartRoute, paymentCheckoutRoute } from './routes-constants'
 
-export default function PersonalCheckout({
-    checkoutPersonal,
-    setCheckoutPersonal,
-}) {
+export default function Checkout({ checkout, setCheckout }) {
     function handleChange(event) {
         const { name, value, type, checked } = event.target
-        setCheckoutPersonal((prevFormData) => {
+        setCheckout((prevFormData) => {
             return {
                 ...prevFormData,
                 [name]: type === 'checkbox' ? checked : value,
             }
         })
-    }
-
-    function onSubmit(e) {
-        e.preventDefault()
     }
 
     return (
@@ -30,7 +23,7 @@ export default function PersonalCheckout({
                         className="w-11/12 border-solid h-12 border-2 mb-5"
                         type="text"
                         name="username"
-                        value={checkoutPersonal.username}
+                        value={checkout.username}
                         onChange={handleChange}
                     />
                     <label className="w-11/12 text-black">
@@ -41,7 +34,7 @@ export default function PersonalCheckout({
                         className="w-11/12 h-12 border-solid border-2 mb-5"
                         type="text"
                         name="address"
-                        value={checkoutPersonal.address}
+                        value={checkout.address}
                         onChange={handleChange}
                     />
                     <label className="w-11/12 text-black">
@@ -52,25 +45,25 @@ export default function PersonalCheckout({
                         className="w-11/12 h-12 border-solid border-2 mb-5"
                         type="text"
                         name="secondAddress"
-                        value={checkoutPersonal.secondAddress}
+                        value={checkout.secondAddress}
                         onChange={handleChange}
                     />
                     <div className="w-11/12 h-12 flex flex-row flex-wrap mb-5">
                         <label className="w-1/3 text-black">City:</label>
                         <label className="w-1/3 text-black">State</label>
-                        <label className="w-1/3 text-black">City:</label>
+                        <label className="w-1/3 text-black">Zip:</label>
                         <input
                             className="w-1/3 border-solid border-2"
                             type="text"
                             name="city"
-                            value={checkoutPersonal.city}
+                            value={checkout.city}
                             onChange={handleChange}
                         />
 
                         <select
                             className="w-1/3 border-solid border-2 overflow-y"
                             name="state"
-                            value={checkoutPersonal.state}
+                            value={checkout.state}
                             onChange={handleChange}
                         >
                             <option value="AL">AL</option>
@@ -129,22 +122,29 @@ export default function PersonalCheckout({
                             className="w-1/3 border-solid border-2"
                             type="number"
                             name="zipcode"
-                            value={checkoutPersonal.zipcode}
+                            value={checkout.zipcode}
                             onChange={handleChange}
+                            pattern="[0-9]*"
+                            maxLength={5}
+                            onKeyPress={(event) => {
+                                if (!/[0-9]/.test(event.key)) {
+                                    event.preventDefault()
+                                }
+                            }}
                         />
                     </div>
                     <div className="flex flex-row w-11/12">
                         <input
                             type="checkbox"
                             name="billingCheck"
-                            checked={checkoutPersonal.billingCheck}
+                            checked={checkout.billingCheck}
                             onChange={handleChange}
                         />
                         <label>Is this the same as your billing address?</label>
                     </div>
                 </section>
 
-                {checkoutPersonal.billingCheck ? (
+                {checkout.billingCheck ? (
                     <section className="w-full h-full flex flex-col items-center justify-start mt-5">
                         <h1>Billing Address</h1>
                         <label className="w-11/12 text-black">Full Name:</label>
@@ -152,7 +152,7 @@ export default function PersonalCheckout({
                             className="w-11/12 border-solid h-12 border-2  mb-5"
                             type="text"
                             name="billingName"
-                            value={checkoutPersonal.billingName}
+                            value={checkout.billingName}
                             onChange={handleChange}
                         />
                         <label className="w-11/12 text-black">
@@ -162,7 +162,7 @@ export default function PersonalCheckout({
                             className="w-11/12 h-12 border-solid border-2 mb-5"
                             type="text"
                             name="billingAddress"
-                            value={checkoutPersonal.billingAddress}
+                            value={checkout.billingAddress}
                             onChange={handleChange}
                         />
                         <label className="w-11/12 text-black">
@@ -172,25 +172,25 @@ export default function PersonalCheckout({
                             className="w-11/12 h-12 border-solid border-2 mb-5"
                             type="text"
                             name="billingSecondAddress"
-                            value={checkoutPersonal.billingSecondAddress}
+                            value={checkout.billingSecondAddress}
                             onChange={handleChange}
                         />
                         <div className="w-11/12 h-12 flex flex-row flex-wrap mb-5">
                             <label className="w-1/3 text-black">City:</label>
-                            <label className="w-1/3 text-black">State</label>
-                            <label className="w-1/3 text-black">City:</label>
+                            <label className="w-1/3 text-black">State:</label>
+                            <label className="w-1/3 text-black">Zip:</label>
                             <input
                                 className="w-1/3 border-solid border-2"
                                 type="text"
                                 name="billingCity"
-                                value={checkoutPersonal.billingCity}
+                                value={checkout.billingCity}
                                 onChange={handleChange}
                             />
 
                             <select
                                 className="w-1/3 border-solid border-2 overflow-y"
                                 name="billingState"
-                                value={checkoutPersonal.billingState}
+                                value={checkout.billingState}
                                 onChange={handleChange}
                             >
                                 <option value="AL">AL</option>
@@ -247,18 +247,25 @@ export default function PersonalCheckout({
                             </select>
                             <input
                                 className="w-1/3 border-solid border-2"
-                                type="number"
+                                type="tel"
                                 name="billingZipcode"
-                                value={checkoutPersonal.billingZipcode}
+                                value={checkout.billingZipcode}
                                 onChange={handleChange}
+                                pattern="[0-9]*"
+                                maxLength={5}
+                                onKeyPress={(event) => {
+                                    if (!/[0-9]/.test(event.key)) {
+                                        event.preventDefault()
+                                    }
+                                }}
                             />
                         </div>
                     </section>
                 ) : null}
-                <Link className="w-3/12 mb-5" to={cartRoute}>
-                    <button className="bg-stone-200 shadow-md text-black w-full rounded-md text-center mt-5">
+                <Link className="w-full mb-5" to={paymentCheckoutRoute}>
+                    <Button className="bg-stone-200 shadow-md text-black w-full rounded-md text-center mt-5">
                         Next
-                    </button>
+                    </Button>
                 </Link>
             </form>
         </body>

@@ -11,10 +11,15 @@ import {
     filterRoute,
     feedbackRoute,
     personalCheckoutRoute,
+    paymentCheckoutRoute,
+    orderRoute,
 } from './routes-constants'
 import { Route, Routes } from 'react-router-dom'
 import Feedback from './Feedback'
 import PersonalCheckout from './PersonalCheckout'
+import PaymentCheckout from './PaymentCheckout'
+import Order from './Order'
+import { check } from 'prettier'
 
 function App() {
     const [productData, setProductData] = useState(data)
@@ -36,20 +41,24 @@ function App() {
         categoryThree: '',
         categoryFour: '',
     })
-    const [checkoutPersonal, setCheckoutPersonal] = useState({
+    const [checkout, setCheckout] = useState({
         username: '',
         address: '',
-        secondAddress: '',
+        secondAddress: String,
         city: '',
         state: '',
-        zip: 0,
+        zipCode: Number,
         billingCheck: false,
         billingName: '',
         billingAddress: '',
         billingSecondAddress: '',
         billingCity: '',
         billingState: '',
-        billingZip: 0,
+        billingZipCode: Number,
+        card: '',
+        year: undefined,
+        month: undefined,
+        cvv: undefined,
     })
 
     return (
@@ -99,8 +108,26 @@ function App() {
                     path={personalCheckoutRoute}
                     element={
                         <PersonalCheckout
-                            checkoutPersonal={checkoutPersonal}
-                            setCheckoutPersonal={setCheckoutPersonal}
+                            checkout={checkout}
+                            setCheckout={setCheckout}
+                        />
+                    }
+                />
+                <Route
+                    path={paymentCheckoutRoute}
+                    element={
+                        <PaymentCheckout
+                            checkout={checkout}
+                            setCheckout={setCheckout}
+                        />
+                    }
+                />
+                <Route
+                    path={orderRoute}
+                    element={
+                        <Order
+                            checkout={checkout}
+                            shoppingCart={shoppingCart}
                         />
                     }
                 />
