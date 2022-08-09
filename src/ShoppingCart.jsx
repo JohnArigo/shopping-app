@@ -1,13 +1,9 @@
 import { Button } from '@mantine/core'
 import trashIcon from './trash-bin.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { homeRoute, personalCheckoutRoute } from './routes-constants'
 
-export default function ShoppingCart({
-    cart,
-    setShoppingCart,
-    setMainDisplay,
-}) {
+export default function ShoppingCart({ cart, setShoppingCart }) {
     const addToQuantity = (itemId) => {
         const updatedCart = { ...cart }
         if (updatedCart[itemId]) {
@@ -41,6 +37,7 @@ export default function ShoppingCart({
 
         return totalPrice
     }
+    const navigate = useNavigate()
 
     if (
         Object.keys(cart).length === 0 ||
@@ -121,14 +118,13 @@ export default function ShoppingCart({
                         <Button className="text-black ">Checkout</Button>
                     </Link>
                 )}
-                <Link className="w-full flex justify-center" to={homeRoute}>
-                    <Button
-                        className="w-full text-lg text-black"
-                        onClick={() => setMainDisplay(false)}
-                    >
-                        Return
-                    </Button>
-                </Link>
+
+                <Button
+                    className="w-full text-lg text-black"
+                    onClick={() => navigate(-1)}
+                >
+                    Return
+                </Button>
             </body>
         )
     }
