@@ -1,4 +1,4 @@
-import { Button, Modal } from '@mantine/core'
+import { Modal } from '@mantine/core'
 import { useState } from 'react'
 import { send } from 'emailjs-com'
 

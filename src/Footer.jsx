@@ -11,23 +11,31 @@ export default function Footer() {
             <section className="flex flex-row items-center w-3/6">
                 <div className="ml-3">
                     <a href="https://linkedIn.com/in/john-arigo">
-                        <img className="h-9 w-9" src={linkedIn} />
+                        <img
+                            className="h-9 w-9"
+                            src={linkedIn}
+                            alt="linkedIn"
+                        />
                     </a>
                 </div>
                 <div className="ml-3">
                     <a href="https://www.facebook.com/john.arigo.39/">
-                        <img className="h-10 w-10" src={facebook} />
+                        <img
+                            className="h-10 w-10"
+                            src={facebook}
+                            alt="facebook"
+                        />
                     </a>
                 </div>
                 <div className="ml-3">
                     <a href="https://github.com/RaggedyRagz">
-                        <img className="h-10 w-10" src={github} />
+                        <img className="h-10 w-10" src={github} alt="github" />
                     </a>
                 </div>
             </section>
             <section className="flex flex-row items-center w-3/6">
                 <Link to={feedbackRoute} className="mr-3">
-                    <img className="h-10 w-10" src={email} />
+                    <img className="h-10 w-10" src={email} alt="email" />
                 </Link>
                 <div className="mr-1">Send a feedback</div>
             </section>

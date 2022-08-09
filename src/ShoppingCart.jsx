@@ -19,7 +19,7 @@ export default function ShoppingCart({
         const updatedCart = { ...cart }
         if (updatedCart[itemId].count > 1) {
             updatedCart[itemId].count = updatedCart[itemId].count - 1
-        } else if (updatedCart[itemId].count == 1) {
+        } else if (updatedCart[itemId].count === 1) {
             delete updatedCart[itemId]
         }
         setShoppingCart({ ...updatedCart })
@@ -43,8 +43,8 @@ export default function ShoppingCart({
     }
 
     if (
-        Object.keys(cart).length == 0 ||
-        Object.keys(cart).length == undefined
+        Object.keys(cart).length === 0 ||
+        Object.keys(cart).length === undefined
     ) {
         return (
             <body className="h-screen w-screen bg-white flex flex-row flex-wrap justify-center items-center">
@@ -69,6 +69,7 @@ export default function ShoppingCart({
                                 <img
                                     className="h-20 w-20 rounded-md"
                                     src={item.image}
+                                    alt="item"
                                 />
                             </div>
                             <div className=" w-9/12">{item.title}</div>
@@ -98,7 +99,11 @@ export default function ShoppingCart({
                                     className="w-2/12"
                                     onClick={() => deleteItem(itemId)}
                                 >
-                                    <img className="w-6 h-6" src={trashIcon} />
+                                    <img
+                                        className="w-6 h-6"
+                                        src={trashIcon}
+                                        alt="trash"
+                                    />
                                 </Button>
                             </section>
                         </main>
@@ -107,8 +112,8 @@ export default function ShoppingCart({
                 <div className="w-full flex justify-end">
                     <h1>Cart Total: ${findPrice().toFixed(2)}</h1>
                 </div>
-                {Object.keys(cart).length == 0 ||
-                Object.keys(cart).length == undefined ? null : (
+                {Object.keys(cart).length === 0 ||
+                Object.keys(cart).length === undefined ? null : (
                     <Link
                         className="w-full flex justify-end "
                         to={personalCheckoutRoute}

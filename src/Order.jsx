@@ -67,6 +67,7 @@ export default function Order({ shoppingCart, checkout }) {
                                         <img
                                             className="h-14 w-14 rounded-md"
                                             src={item.image}
+                                            alt="item"
                                         />
                                     </div>
                                     <div className=" w-9/12">{item.title}</div>

@@ -19,7 +19,7 @@ import Feedback from './Feedback'
 import PersonalCheckout from './PersonalCheckout'
 import PaymentCheckout from './PaymentCheckout'
 import Order from './Order'
-import { check } from 'prettier'
+
 //why is my API not setting normally? Put it on another state and it passes fine
 function App() {
     const [productData, setProductData] = useState(data)
@@ -66,20 +66,7 @@ function App() {
         month: 1,
         cvv: '',
     })
-    const billingAddressCheck = () => {
-        if (checkout.billingCheck) {
-            setCheckout((prevState) => ({
-                ...prevState,
-                billingName: checkout.username,
-                billingAddress: checkout.address,
-                billingSecondAddress: checkout.secondAddress,
-                billingCity: checkout.city,
-                billingState: checkout.state,
-                billingZipCode: checkout.zipCode,
-            }))
-        }
-    }
-    console.log(checkout)
+
     return (
         <body className="app-body">
             <NavBar cart={shoppingCart} />

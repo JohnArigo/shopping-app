@@ -39,7 +39,7 @@ export default function ProductCard({
                 userCategoryChoice.categoryFour === ''
             ) {
                 return card
-            }
+            } else return false
         })
     const dataPriceFilter = () =>
         dataCategoryFilter().filter((card) => {
@@ -51,7 +51,7 @@ export default function ProductCard({
                 cardPrice <= userPricePreferenceMax
             ) {
                 return card
-            }
+            } else return false
         })
 
     const dataSearchFilter = () =>
@@ -64,7 +64,7 @@ export default function ProductCard({
             } else if (cardTitle.includes(userSearch)) {
                 //returns filtered array
                 return card
-            }
+            } else return false
         })
 
     return (
@@ -89,6 +89,7 @@ export default function ProductCard({
                             <img
                                 className="h-20 w-20 mt-4"
                                 src={cartItem.image}
+                                alt="item"
                             />
                         </Card.Section>
 

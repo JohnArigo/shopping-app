@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Button } from '@mantine/core'
 import { homeRoute } from './routes-constants'
 import { Link } from 'react-router-dom'

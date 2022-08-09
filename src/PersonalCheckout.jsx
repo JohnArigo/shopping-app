@@ -1,7 +1,5 @@
-import { Button } from '@mantine/core'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { cartRoute, paymentCheckoutRoute } from './routes-constants'
 
 export default function Checkout({ checkout, setCheckout }) {
     function handleChange(event) {
