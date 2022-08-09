@@ -1,5 +1,6 @@
 import { Button } from '@mantine/core'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { cartRoute, paymentCheckoutRoute } from './routes-constants'
 
 export default function Checkout({ checkout, setCheckout }) {
@@ -13,9 +14,77 @@ export default function Checkout({ checkout, setCheckout }) {
         })
     }
 
+    const [val, setVal] = useState({
+        fields: {},
+        errors: {},
+    })
+
+    const handleValidation = () => {
+        let fields = checkout
+        let errors = {}
+        let formIsValid = true
+
+        if (!fields['username']) {
+            formIsValid = false
+            errors['username'] = 'Cannot be empty'
+        }
+
+        if (typeof fields['username'] !== 'undefined') {
+            if (!fields['username'].match(/^[a-zA-Z]+$/)) {
+                formIsValid = false
+                errors['username'] = 'Name can only be letters'
+            }
+        }
+
+        if (!fields['address']) {
+            formIsValid = false
+            errors['address'] = 'Cannot be empty'
+        }
+
+        if (!fields['city']) {
+            formIsValid = false
+            errors['city'] = 'Cannot be empty'
+        }
+
+        if (!fields['zipcode']) {
+            formIsValid = false
+            errors['zipcode'] = 'Cannot be empty'
+        }
+
+        setVal({ errors: errors })
+        return formIsValid
+    }
+
+    const navigate = useNavigate()
+
+    const contactSubmit = (e) => {
+        e.preventDefault()
+        const errors = JSON.stringify(val.errors)
+        if (checkout.billingCheck) {
+            setCheckout((prevState) => ({
+                ...prevState,
+                billingName: checkout.username,
+                billingAddress: checkout.address,
+                billingSecondAddress: checkout.secondAddress,
+                billingCity: checkout.city,
+                billingState: checkout.state,
+                billingZipCode: checkout.zipCode,
+            }))
+        }
+
+        if (handleValidation()) {
+            navigate('/paymentCheckout')
+        } else {
+            alert(`Form has errors. ` + errors)
+        }
+    }
+
     return (
         <body className="w-screen h-screen flex flex-row justify-center items-center overflow-auto">
-            <form className="w-full h-full flex flex-col items-center justify-start mt-5 mb-5">
+            <form
+                onSubmit={contactSubmit}
+                className="w-full h-full flex flex-col items-center justify-start mt-5 mb-5"
+            >
                 <section className="w-full h-full flex flex-col items-center justify-start mt-5">
                     <h1>Shipping Address</h1>
                     <label className="w-11/12 text-black">Full Name:</label>
@@ -49,7 +118,6 @@ export default function Checkout({ checkout, setCheckout }) {
                         name="secondAddress"
                         value={checkout.secondAddress}
                         onChange={handleChange}
-                        required
                     />
                     <div className="w-11/12 h-12 flex flex-row flex-wrap mb-5">
                         <label className="w-1/3 text-black">City:</label>
@@ -145,7 +213,6 @@ export default function Checkout({ checkout, setCheckout }) {
                             name="billingCheck"
                             checked={checkout.billingCheck}
                             onChange={handleChange}
-                            required
                         />
                         <label>Is this the same as your billing address?</label>
                     </div>
@@ -275,11 +342,10 @@ export default function Checkout({ checkout, setCheckout }) {
                         </div>
                     </section>
                 )}
-                <Link className="w-full mb-5" to={paymentCheckoutRoute}>
-                    <Button className="bg-stone-200 shadow-md text-black w-full rounded-md text-center mt-5">
-                        Next
-                    </Button>
-                </Link>
+
+                <button className="bg-stone-200 shadow-md text-black w-full rounded-md text-center mt-5 h-10">
+                    Next
+                </button>
             </form>
         </body>
     )
