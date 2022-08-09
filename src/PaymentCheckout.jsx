@@ -2,7 +2,11 @@ import { Button } from '@mantine/core'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-export default function PaymentCheckout({ checkout, setCheckout }) {
+export default function PaymentCheckout({
+    checkout,
+    setCheckout,
+    shoppingCart,
+}) {
     const date = new Date()
     const month = date.getMonth()
     const year = date.getFullYear()
@@ -51,7 +55,7 @@ export default function PaymentCheckout({ checkout, setCheckout }) {
             errors['cvv'] = 'Invalid CVV Number'
         }
 
-        if (fields['year'] <= year && fields['month'] < month) {
+        if (fields['year'] <= year && fields['month'] <= month) {
             formIsValid = false
             errors['year'] = 'Invalid Expiration Date'
         }
@@ -80,97 +84,115 @@ export default function PaymentCheckout({ checkout, setCheckout }) {
         }
     }
 
-    return (
-        <main className="w-screen h-screen flex flex-row flex-wrap">
-            <form
-                onSubmit={contactSubmit}
-                className="w-full h-full flex justify-center items-center flex-wrap"
-            >
-                <section className="flex flex-row flex-wrap w-11/12 h-1/6">
-                    <label className="w-4/12">Card Number:</label>
-                    <input
-                        className="w-8/12 border-solid border-2 border-black"
-                        type="string"
-                        inputMode="string"
-                        name="card"
-                        autocomplete="cc-number"
-                        value={creditDebit
-                            .replace(/\W/gi, '')
-                            .replace(/(.{4})/g, ' $1')}
-                        onChange={handleChange}
-                        pattern="[0-9]*"
-                        maxLength={19}
-                        placeholder="XXXX XXXX XXXX XXXX"
-                        onKeyPress={(event) => {
-                            if (!/[0-9]/.test(event.key)) {
-                                event.preventDefault()
-                            }
-                        }}
-                        onKeyDown={cardFunction()}
-                        required
-                    />
-                    <label className="w-4/12">Expiration</label>
-                    <select
-                        className="w-3/12 overflow-y  border-solid border-2 border-black"
-                        name="month"
-                        value={checkout.month}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                    </select>
-                    <select
-                        className="w-3/12 overflow-y border-solid border-2 border-black"
-                        name="year"
-                        value={checkout.year}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option>2022</option>
-                        <option>2023</option>
-                        <option>2024</option>
-                        <option>2025</option>
-                        <option>2026</option>
-                        <option>2027</option>
-                        <option>2028</option>
-                    </select>
-                    <label className="w-4/12">CVV</label>
-                    <input
-                        className="w-5/12 border-black border-2 border-solid"
-                        type="tel"
-                        name="cvv"
-                        value={checkout.cvv}
-                        onChange={handleChange}
-                        pattern="[0-9]*"
-                        minLength={3}
-                        maxLength={4}
-                        placeholder="XXXX"
-                        onKeyPress={(event) => {
-                            if (!/[0-9]/.test(event.key)) {
-                                event.preventDefault()
-                            }
-                        }}
-                        required
-                    />
-                </section>
-                <Button
-                    onClick={contactSubmit}
-                    className="bg-stone-200 shadow-md text-black w-full rounded-md text-center mt-5"
+    if (
+        Object.keys(shoppingCart).length === 0 ||
+        Object.keys(shoppingCart).length === undefined
+    ) {
+        return (
+            <>
+                <h1>ERROR go to home page</h1>
+            </>
+        )
+    } else {
+        return (
+            <main className="w-screen h-screen flex flex-row flex-wrap">
+                <h1
+                    className="text-3xl self-start w-full"
+                    onClick={() => navigate(-1)}
                 >
-                    Next
-                </Button>
-            </form>
-        </main>
-    )
+                    {' '}
+                    ←
+                </h1>
+                <form
+                    onSubmit={contactSubmit}
+                    className="w-full h-full flex justify-center items-center flex-wrap"
+                >
+                    <section className="flex flex-row flex-wrap w-11/12 h-1/6">
+                        <label className="w-4/12">Card Number:</label>
+                        <input
+                            className="w-8/12 border-solid border-2 border-black"
+                            type="string"
+                            inputMode="string"
+                            name="card"
+                            autocomplete="cc-number"
+                            value={creditDebit
+                                .replace(/\W/gi, '')
+                                .replace(/(.{4})/g, ' $1')}
+                            onChange={handleChange}
+                            pattern="[0-9]*"
+                            maxLength={19}
+                            placeholder="XXXX XXXX XXXX XXXX"
+                            onKeyPress={(event) => {
+                                if (!/[0-9]/.test(event.key)) {
+                                    event.preventDefault()
+                                }
+                            }}
+                            onKeyDown={cardFunction()}
+                            required
+                        />
+                        <label className="w-4/12">Expiration</label>
+                        <select
+                            className="w-3/12 overflow-y  border-solid border-2 border-black"
+                            name="month"
+                            value={checkout.month}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                        </select>
+                        <select
+                            className="w-3/12 overflow-y border-solid border-2 border-black"
+                            name="year"
+                            value={checkout.year}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option>2022</option>
+                            <option>2023</option>
+                            <option>2024</option>
+                            <option>2025</option>
+                            <option>2026</option>
+                            <option>2027</option>
+                            <option>2028</option>
+                        </select>
+                        <label className="w-4/12">CVV</label>
+                        <input
+                            className="w-5/12 border-black border-2 border-solid"
+                            type="tel"
+                            name="cvv"
+                            value={checkout.cvv}
+                            onChange={handleChange}
+                            pattern="[0-9]*"
+                            minLength={3}
+                            maxLength={4}
+                            placeholder="XXXX"
+                            onKeyPress={(event) => {
+                                if (!/[0-9]/.test(event.key)) {
+                                    event.preventDefault()
+                                }
+                            }}
+                            required
+                        />
+                    </section>
+                    <Button
+                        onClick={contactSubmit}
+                        className="bg-stone-200 shadow-md text-black w-full rounded-md text-center mt-5"
+                    >
+                        Next
+                    </Button>
+                </form>
+            </main>
+        )
+    }
 }

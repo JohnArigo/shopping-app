@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button } from '@mantine/core'
 import { homeRoute } from './routes-constants'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function MainPage({
     searchInput,
@@ -11,6 +11,8 @@ export default function MainPage({
     productsMin,
 }) {
     const [searchState, setSearchState] = useState(true)
+
+    const navigate = useNavigate()
 
     const filterData = () => {
         if (searchInput.categoryOne) {
@@ -63,6 +65,9 @@ export default function MainPage({
 
     return (
         <main className="flex flex-col items-center h-screen w-screen">
+            <h1 className="text-3xl self-start" onClick={() => navigate(-1)}>
+                ←
+            </h1>
             {searchState ? (
                 <button
                     className="w-full h-1/4 shadow-md mb-5"

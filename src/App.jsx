@@ -116,6 +116,7 @@ function App() {
                         <PersonalCheckout
                             checkout={checkout}
                             setCheckout={setCheckout}
+                            shoppingCart={shoppingCart}
                         />
                     }
                 />
@@ -125,6 +126,7 @@ function App() {
                         <PaymentCheckout
                             checkout={checkout}
                             setCheckout={setCheckout}
+                            shoppingCart={shoppingCart}
                         />
                     }
                 />
