@@ -1,7 +1,7 @@
 {
     "name": "shopping-app",
     "version": "0.1.0",
-    "homepage": "https://RaggedyRagz.github.io/shopping-app",
+    "homepage": "https://RaggedyRagz.github.io/",
     "private": true,
     "dependencies": {
         "@mantine/core": "^4.2.12",

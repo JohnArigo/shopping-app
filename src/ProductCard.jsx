@@ -68,7 +68,7 @@ export default function ProductCard({
         })
 
     return (
-        <body className="flex flex-row justify-center flex-wrap overflow-auto h-screen w-screen bg-slate-100">
+        <body className="flex flex-row justify-center items-center flex-wrap overflow-auto h-screen w-screen bg-slate-100">
             <Link
                 to={filterRoute}
                 className="flex flex-col items-end w-full mb-16 mt-2"
@@ -83,7 +83,7 @@ export default function ProductCard({
                 return (
                     <Card
                         p="lg"
-                        className="flex flex-col justify-center items-center ml-5 mb-2 mt-2 w-60 h-96 shadow-lg"
+                        className="flex flex-col justify-center items-center mb-2 mt-2 w-60 h-96 shadow-lg"
                     >
                         <Card.Section>
                             <img
