@@ -1,4 +1,4 @@
-export const homeRoute = '/'
+export const homeRoute = '/shopping-app'
 export const cartRoute = '/cart'
 export const filterRoute = '/filter'
 export const feedbackRoute = '/feedback'
