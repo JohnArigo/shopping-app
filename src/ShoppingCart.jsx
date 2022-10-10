@@ -61,7 +61,7 @@ export default function ShoppingCart({ cart, setShoppingCart }) {
                 {Object.keys(cart).map((itemId) => {
                     const item = cart[itemId]
                     return (
-                        <main className="flex flex-row items-center flex-wrap w-11/12 mt-2 mb-2 ml-2 rounded-md border-solid h-96">
+                        <main className="flex flex-row items-center flex-wrap w-96 mt-2 mb-2 ml-2 rounded-md border-solid h-96">
                             <div className="w-3/12">
                                 <img
                                     className="h-20 w-20 rounded-md"
@@ -107,15 +107,17 @@ export default function ShoppingCart({ cart, setShoppingCart }) {
                     )
                 })}
                 <div className="w-full flex justify-end">
-                    <h1>Cart Total: ${findPrice().toFixed(2)}</h1>
+                    <h1 className="mr-10">
+                        Cart Total: ${findPrice().toFixed(2)}
+                    </h1>
                 </div>
                 {Object.keys(cart).length === 0 ||
                 Object.keys(cart).length === undefined ? null : (
                     <Link
-                        className="w-full flex justify-end "
+                        className="w-full flex justify-end"
                         to={personalCheckoutRoute}
                     >
-                        <Button className="text-black ">Checkout</Button>
+                        <Button className="text-black mr-10 ">Checkout</Button>
                     </Link>
                 )}
 

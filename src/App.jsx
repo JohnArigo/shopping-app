@@ -71,8 +71,10 @@ function App() {
     })
 
     return (
-        <body className="app-body">
-            {titleState ? <NavBar cart={shoppingCart} /> : null}
+        <body>
+            {titleState ? (
+                <NavBar cart={shoppingCart} setTitleState={setTitleState} />
+            ) : null}
 
             <Routes>
                 <Route
