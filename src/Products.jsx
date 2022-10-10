@@ -2,7 +2,7 @@ import { Card, Group, Badge, Button, Text } from '@mantine/core'
 import { filterRoute } from './routes-constants'
 import { Link } from 'react-router-dom'
 
-export default function ProductCard({
+export default function Products({
     cart,
     data,
     setShoppingCart,
@@ -83,7 +83,7 @@ export default function ProductCard({
                 return (
                     <Card
                         p="lg"
-                        className="flex flex-col justify-center items-center mb-2 mt-2 w-60 h-96 shadow-lg"
+                        className="flex flex-col justify-center items-center ml-5 mr-5 mb-2 mt-2 w-60 h-96 shadow-lg"
                     >
                         <Card.Section>
                             <img

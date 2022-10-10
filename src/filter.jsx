@@ -3,7 +3,7 @@ import { Button } from '@mantine/core'
 import { homeRoute } from './routes-constants'
 import { Link, useNavigate } from 'react-router-dom'
 
-export default function MainPage({
+export default function Filter({
     searchInput,
     setSearchInput,
     setUserCategoryChoice,

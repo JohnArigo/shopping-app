@@ -1,9 +1,9 @@
 import NavBar from './NavBar'
-import MainPage from './MainPage'
+import Filter from './filter'
 import Footer from './Footer'
 import { useEffect, useState } from 'react'
 import ShoppingCart from './ShoppingCart'
-import ProductCard from './ProductCard'
+import Products from './Products'
 import data from './data.json'
 import {
     cartRoute,
@@ -13,12 +13,14 @@ import {
     personalCheckoutRoute,
     paymentCheckoutRoute,
     orderRoute,
+    titleRoute,
 } from './routes-constants'
 import { Route, Routes } from 'react-router-dom'
 import Feedback from './Feedback'
 import PersonalCheckout from './PersonalCheckout'
 import PaymentCheckout from './PaymentCheckout'
 import Order from './Order'
+import Title from './Title'
 
 //why is my API not setting normally? Put it on another state and it passes fine
 function App() {
@@ -30,6 +32,7 @@ function App() {
     }, [])
 
     const [shoppingCart, setShoppingCart] = useState({})
+    const [titleState, setTitleState] = useState(false)
     const productsMax = Math.max(...productData.map((data) => data.price))
     const productsMin = Math.min(...productData.map((data) => data.price))
     const [searchInput, setSearchInput] = useState({
@@ -69,13 +72,17 @@ function App() {
 
     return (
         <body className="app-body">
-            <NavBar cart={shoppingCart} />
+            {titleState ? <NavBar cart={shoppingCart} /> : null}
 
             <Routes>
                 <Route
+                    path={titleRoute}
+                    element={<Title setTitleState={setTitleState} />}
+                />
+                <Route
                     path={homeRoute}
                     element={
-                        <ProductCard
+                        <Products
                             cart={shoppingCart}
                             data={productData}
                             setShoppingCart={setShoppingCart}
@@ -98,7 +105,7 @@ function App() {
                 <Route
                     path={filterRoute}
                     element={
-                        <MainPage
+                        <Filter
                             productData={productData}
                             searchInput={searchInput}
                             setSearchInput={setSearchInput}
@@ -141,7 +148,7 @@ function App() {
                 />
             </Routes>
 
-            <Footer />
+            {titleState ? <Footer /> : null}
         </body>
     )
 }

@@ -17,7 +17,7 @@ export default function NavBar({ cart, setMainDisplay, setFilterDisplay }) {
         <nav className="flex justify-between items-center h-2/12 w-screen sticky top-0 z-10 bg-emerald-500">
             <Link to={homeRoute}>E-Commerence Project</Link>
             <Link to={cartRoute}>
-                <img className="mt-1" src={cartIcon} alt="cart" />
+                <img className="mt-1 mr-5" src={cartIcon} alt="cart" />
                 <label className="text-xs bg-red-600 text-stone-50 px-1 align-top">
                     {countCartItem()}
                 </label>
