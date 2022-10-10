@@ -1,14 +1,15 @@
 {
   "files": {
-    "main.css": "/shopping-app/static/css/main.dcc6ddbe.css",
-    "main.js": "/shopping-app/static/js/main.088b5fd7.js",
+    "main.css": "/shopping-app/static/css/main.5436f575.css",
+    "main.js": "/shopping-app/static/js/main.3799db57.js",
+    "static/media/barcelona.jpg": "/shopping-app/static/media/barcelona.d78cdb578c8eb7d2c369.jpg",
     "static/media/trash-bin.png": "/shopping-app/static/media/trash-bin.3064958e440239dc1a1d.png",
     "index.html": "/shopping-app/index.html",
-    "main.dcc6ddbe.css.map": "/shopping-app/static/css/main.dcc6ddbe.css.map",
-    "main.088b5fd7.js.map": "/shopping-app/static/js/main.088b5fd7.js.map"
+    "main.5436f575.css.map": "/shopping-app/static/css/main.5436f575.css.map",
+    "main.3799db57.js.map": "/shopping-app/static/js/main.3799db57.js.map"
   },
   "entrypoints": [
-    "static/css/main.dcc6ddbe.css",
-    "static/js/main.088b5fd7.js"
+    "static/css/main.5436f575.css",
+    "static/js/main.3799db57.js"
   ]
 }
